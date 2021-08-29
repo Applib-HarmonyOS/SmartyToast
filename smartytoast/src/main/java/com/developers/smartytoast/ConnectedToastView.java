@@ -1,46 +1,46 @@
 package com.developers.smartytoast;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
-import android.view.View;
+import ohos.agp.components.AttrSet;
+import ohos.agp.components.Component;
+import ohos.agp.render.Arc;
+import ohos.agp.render.Canvas;
+import ohos.agp.render.Paint;
+import ohos.agp.utils.Color;
+import ohos.app.Context;
 
 /**
  * Created by Amanjeet Singh on 04-Jun-17.
  */
+public class ConnectedToastView extends Component implements Component.DrawTask {
 
-public class ConnectedToastView extends View {
+  private final RectF oval = new RectF();
+  private final Paint paint = new Paint();
+  private final RectF oval1 = new RectF();
+  private final RectF oval2 = new RectF();
 
-    private RectF oval=new RectF();
-    private Paint paint =new Paint();
-    private RectF oval1=new RectF();
-    private RectF oval2=new RectF();
+  /** A constructor to initialize drawing attributes.
+   *
+   * @param context app context
+   * @param attrs   xml attributes
+   */
+  public ConnectedToastView(final Context context, final AttrSet attrs) {
+    super(context, attrs);
+    paint.setStrokeWidth(5);
+    paint.setStyle(Paint.Style.STROKE_STYLE);
+    paint.setAntiAlias(true);
+    paint.setColor(Color.BLUE);
+    addDrawTask(this);
+  }
 
-    public ConnectedToastView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        paint.setStrokeWidth(dip2px(2));
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setAntiAlias(true);
-        paint.setColor(Color.BLUE);
-    }
-
-    public int dip2px(float dpValue) {
-        final float scale = getContext().getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        oval.set(getWidth()/2-5,getHeight()/2-5,getWidth()/2+5,getHeight()/2+5);
-        canvas.drawArc(oval,-20,-140,false,paint);
-        oval1.set(getWidth()/2-15,getHeight()/2-15,getWidth()/2+15,getHeight()/2+15);
-        canvas.drawArc(oval1,-20,-140,false,paint);
-        oval2.set(getWidth()/2-25,getHeight()/2-25,getWidth()/2+25,getHeight()/2+25);
-        canvas.drawArc(oval2,-20,-140,false,paint);
-    }
+  @Override
+  public void onDraw(final Component component, final Canvas canvas) {
+    final int width = getWidth();
+    final int height = getHeight();
+    oval.set(new RectF(width / 2 - 5, height / 2 - 5, width / 2 + 5, height / 2 + 5));
+    canvas.drawArc(oval, new Arc(-20, -140, false), paint);
+    oval1.set(new RectF(width / 2 - 15, height / 2 - 15, width / 2 + 15, height / 2 + 15));
+    canvas.drawArc(oval1, new Arc(-20, -140, false), paint);
+    oval2.set(new RectF(width / 2 - 25, height / 2 - 25, width / 2 + 25, height / 2 + 25));
+    canvas.drawArc(oval2, new Arc(-20, -140, false), paint);
+  }
 }

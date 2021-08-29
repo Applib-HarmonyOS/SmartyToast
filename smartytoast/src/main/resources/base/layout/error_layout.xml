@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:id="$+id:root_layout"
+    ohos:height="match_content"
+    ohos:width="match_parent"
+    ohos:background_element="#FFFFFF">
+
+    <DirectionalLayout
+        ohos:id="$+id:base_layout"
+        ohos:height="match_content"
+        ohos:width="match_content"
+        ohos:background_element="$graphic:error_toast"
+        ohos:bottom_margin="25vp"
+        ohos:left_margin="30vp"
+        ohos:orientation="horizontal"
+        ohos:right_margin="30vp"
+        ohos:top_margin="25vp">
+
+        <DirectionalLayout
+            ohos:id="$+id:linearlayout"
+            ohos:height="match_parent"
+            ohos:width="match_parent"
+            ohos:alignment="center"
+            ohos:background_element="$graphic:viewbox">
+
+            <com.developers.smartytoast.ErrorToastView
+                ohos:id="$+id:error_View"
+                ohos:height="35vp"
+                ohos:width="35vp"
+                ohos:alignment="vertical_center|left"
+                ohos:layout_alignment="vertical_center|left"
+                ohos:margin="10px"
+                ohos:weight="0.45"/>
+
+        </DirectionalLayout>
+        <Text
+            ohos:id="$+id:error_message"
+            ohos:width="match_parent"
+            ohos:height="match_content"
+            ohos:layout_alignment="vertical_center"
+            ohos:padding="10vp"
+            ohos:text_size="15vp"
+            ohos:text_color="#ffffff"
+            ohos:text="Error!!" />
+
+
+    </DirectionalLayout>
+
+
+</DirectionalLayout>

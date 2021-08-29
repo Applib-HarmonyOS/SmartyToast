@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SmartyToast-master.iml" filepath="$PROJECT_DIR$/SmartyToast-master.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/SmartyToast-master-app.iml" filepath="$PROJECT_DIR$/app/SmartyToast-master-app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/smartytoast/SmartyToast-master-smartytoast.iml" filepath="$PROJECT_DIR$/smartytoast/SmartyToast-master-smartytoast.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/smartytoast/smartytoast.iml" filepath="$PROJECT_DIR$/smartytoast/smartytoast.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SmartyToast.iml" filepath="$PROJECT_DIR$/.idea/modules/SmartyToast.iml" group="SmartyToast" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/entry/entry.iml" filepath="$PROJECT_DIR$/.idea/modules/entry/entry.iml" group="SmartyToast/entry" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/smartytoast/smartytoast.iml" filepath="$PROJECT_DIR$/.idea/modules/smartytoast/smartytoast.iml" group="SmartyToast/smartytoast" />
     </modules>
   </component>
 </project>
