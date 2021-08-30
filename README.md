@@ -2,7 +2,8 @@ Smarty Toast
 =================
 Introduction
 ------------
-Android library with collection of some smart toasts designs which will help in situations of following:-<br>
+HMOS library with collection of some smart toasts designs which will help in situations of following
+:-<br>
 <UL>
 <LI>Completion of some work(Done!!)</LI>
 <LI>Errors</LI>
