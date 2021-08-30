@@ -14,7 +14,7 @@ Android library with collection of some smart toasts designs which will help in 
 
 # Source
 
-The code in this repository was inspired from https://github.com/amanjeetsingh150/SmartyToast. We are very thankful to amanjeetsingh150.
+The code in this repository was inspired from [amanjeetsingh150/SmartyToast - v1.0](https://github.com/amanjeetsingh150/SmartyToast). We are very thankful to amanjeetsingh150.
 
 # Demo
 
