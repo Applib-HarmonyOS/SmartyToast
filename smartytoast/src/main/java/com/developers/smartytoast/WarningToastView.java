@@ -1,58 +1,78 @@
 package com.developers.smartytoast;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
-import android.view.View;
+import ohos.agp.components.AttrSet;
+import ohos.agp.components.Component;
+import ohos.agp.render.Canvas;
+import ohos.agp.render.Paint;
+import ohos.agp.utils.Color;
+import ohos.app.Context;
+import ohos.eventhandler.EventHandler;
+import ohos.eventhandler.EventRunner;
 
 /**
  * Created by Amanjeet Singh on 03-Jun-17.
  */
+public class WarningToastView extends Component implements Component.DrawTask, RunCheck {
 
-public class WarningToastView extends View {
+  private final Paint paint = new Paint();
+  private final Paint circlepaint = new Paint();
+  private int iwval;
+  private final EventHandler event;
+  private final EventRunner runner;
+  private boolean stopAnimator;
 
-    private Paint paint=new Paint();
-    private Paint circlepaint=new Paint();
-    private int i=0;
+  /**
+   * A constructor to initialize drawing attributes.
+   *
+   * @param context app context
+   * @param attrs   xml attributes
+   */
+  public WarningToastView(final Context context, final AttrSet attrs) {
+    super(context, attrs);
+    paint.setStyle(Paint.Style.STROKE_STYLE);
+    paint.setColor(Color.RED);
+    paint.setAntiAlias(true);
+    paint.setStrokeWidth(5);
+    circlepaint.setAntiAlias(true);
+    circlepaint.setStyle(Paint.Style.FILL_STYLE);
+    circlepaint.setColor(Color.RED);
+    iwval = 0;
+    runner = EventRunner.current();
+    event = new EventHandler(runner);
+    event.postTask(animator);
+    addDrawTask(this);
+    SmartyToast.registerListener(this);
+    stopAnimator = false;
+  }
 
-    public WarningToastView(Context context, @Nullable AttributeSet attrs) {
-        super(context);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.RED);
-        paint.setAntiAlias(true);
-        paint.setStrokeWidth(dip2px(2));
-        circlepaint.setAntiAlias(true);
-        circlepaint.setStyle(Paint.Style.FILL);
-        circlepaint.setColor(Color.RED);
-        post(animator);
-    }
+  @Override
+  public void onDraw(final Component component, final Canvas canvas) {
+    canvas.drawLine(getWidth() / 2, 0, getWidth() / 2, 5 + iwval, paint);
+    canvas.drawCircle(getWidth() / 2, getHeight() - 5, 5, circlepaint);
+  }
 
+  private final  Runnable animator = new Runnable() {
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawLine(getWidth()/2,0,getWidth()/2,5+i,paint);
-        canvas.drawCircle(getWidth()/2,getHeight()-5,dip2px(2),circlepaint);
-    }
+    public void run() {
+      if (stopAnimator) {
+        return;
+      }
 
-    public int dip2px(float dpValue) {
-        final float scale = getContext().getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
+      if (iwval <= getHeight() / 2) {
+        iwval += 5;
+      } else {
+        iwval = 0;
+      }
+      invalidate();
+      event.postTask(this, 300);
     }
+  };
 
-    Runnable animator=new Runnable() {
-        @Override
-        public void run() {
-            if(i<=getHeight()/2){
-                i+=5;
-            }
-            else{
-                i=0;
-            }
-            invalidate();
-            postDelayed(this,300);
-        }
-    };
+  @Override
+  public void stopRunner() {
+    stopAnimator = true;
+    if (runner != null) {
+      runner.stop();
+    }
+  }
 }

@@ -1,53 +1,79 @@
 package com.developers.smartytoast;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
-import android.view.View;
+import ohos.agp.colors.RgbPalette;
+import ohos.agp.components.AttrSet;
+import ohos.agp.components.Component;
+import ohos.agp.render.Arc;
+import ohos.agp.render.Canvas;
+import ohos.agp.render.Paint;
+import ohos.agp.utils.Color;
+import ohos.app.Context;
+import ohos.eventhandler.EventHandler;
+import ohos.eventhandler.EventRunner;
 
 /**
  * Created by Amanjeet Singh on 04-Jun-17.
  */
+public class UpdatingToastView extends Component implements Component.DrawTask, RunCheck {
 
-public class UpdatingToastView extends View {
+  private static final int SWEEP_ANGLE = 220;
+  private int startAngle1 = 120;
+  private final RectF oval = new RectF();
+  private boolean stopAnimator;
+  private final Paint paint = new Paint();
+  private final EventHandler event;
+  private final EventRunner runner;
+  private final Color colorUpdate = new Color(RgbPalette.parse("#1919ff"));
 
-    private int sweepAngle1 = 220;
-    private int startAngle1 = 120;
+  /**
+   * A constructor to initialize drawing attributes.
+   *
+   * @param context app context
+   * @param attrs   xml attributes
+   */
+  public UpdatingToastView(final Context context, final AttrSet attrs) {
+    super(context, attrs);
+    paint.setAntiAlias(true);
+    paint.setColor(colorUpdate);
+    paint.setStyle(Paint.Style.STROKE_STYLE);
+    paint.setStrokeWidth(5);
+    runner = EventRunner.current();
+    event = new EventHandler(runner);
+    event.postTask(animator);
+    addDrawTask(this);
+    SmartyToast.registerListener(this);
+    stopAnimator = false;
+  }
 
-    private RectF oval=new RectF();
+  @Override
+  public void onDraw(final Component component, final Canvas canvas) {
+    oval.set(new RectF(getWidth() / 2 - 15, getHeight() / 2 - 15, getWidth() / 2 + 15,
+        getHeight() / 2 + 15));
+    canvas.drawArc(oval, new Arc(startAngle1, SWEEP_ANGLE, false), paint);
+  }
 
-    private Paint paint=new Paint();
-
-    public UpdatingToastView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        paint.setAntiAlias(true);
-        paint.setColor(Color.parseColor("#1919ff"));
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(5);
-        post(animator);
-    }
-
+  private final Runnable animator = new Runnable() {
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        oval.set(getWidth()/2-15,getHeight()/2-15,getWidth()/2+15,getHeight()/2+15);
-        canvas.drawArc(oval,startAngle1,sweepAngle1,false,paint);
+    public void run() {
+      if (stopAnimator) {
+        return;
+      }
+
+      if (startAngle1 <= 360) {
+        startAngle1 += 10;
+      } else {
+        startAngle1 = 1;
+      }
+      invalidate();
+      event.postTask(this, 30);
     }
-    Runnable animator=new Runnable() {
-        @Override
-        public void run() {
-            if(startAngle1<=360){
-                startAngle1+=10;
-            }
-            else {
-                startAngle1=1;
-            }
-            invalidate();
-            postDelayed(this,30);
-        }
-    };
+  };
+
+  @Override
+  public void stopRunner() {
+    stopAnimator = true;
+    if (runner != null) {
+      runner.stop();
+    }
+  }
 }

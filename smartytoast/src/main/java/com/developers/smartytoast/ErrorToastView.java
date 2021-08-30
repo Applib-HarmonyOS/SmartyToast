@@ -1,57 +1,74 @@
 package com.developers.smartytoast;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Point;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
-import android.view.View;
+import ohos.agp.components.AttrSet;
+import ohos.agp.components.Component;
+import ohos.agp.render.Canvas;
+import ohos.agp.render.Paint;
+import ohos.agp.utils.Color;
+import ohos.app.Context;
+import ohos.eventhandler.EventHandler;
+import ohos.eventhandler.EventRunner;
 
 /**
  * Created by Amanjeet Singh on 03-Jun-17.
  */
+public class ErrorToastView extends Component implements Component.DrawTask, RunCheck {
 
-public class ErrorToastView extends View {
+  private boolean stopAnimator;
+  private final Paint linepaint = new Paint();
+  private int ival;
+  private final EventHandler event;
+  private final EventRunner runner;
 
-    private Paint linepaint=new Paint();
-    private Point endpoint=new Point();
-    private int  i=0;
-    public ErrorToastView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        linepaint.setStyle(Paint.Style.STROKE);
-        linepaint.setStrokeWidth(dip2px(2));
-        linepaint.setAntiAlias(true);
-        linepaint.setColor(Color.RED);
-        post(runnable);
-    }
+  /**A constructor to initialize drawing attributes.
+   *
+   * @param context app context
+   * @param attrs   xml attributes
+   */
+  public ErrorToastView(final Context context, final AttrSet attrs) {
+    super(context, attrs);
+    linepaint.setStyle(Paint.Style.STROKE_STYLE);
+    linepaint.setStrokeWidth(5);
+    linepaint.setAntiAlias(true);
+    linepaint.setColor(Color.RED);
+    ival = 0;
+    runner = EventRunner.current();
+    event = new EventHandler(runner);
+    event.postTask(runnable);
+    SmartyToast.registerListener(this);
+    stopAnimator = false;
+    addDrawTask(this);
+  }
 
-    public int dip2px(float dpValue) {
-        final float scale = getContext().getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
+  @Override
+  public void onDraw(final Component component, final Canvas canvas) {
+    canvas.drawLine(0, 0, 2.5f + ival, 4.3f + ival, linepaint);
+    canvas.drawLine(getWidth(), 0, getWidth() - 2.5f - ival, 4.3f + ival, linepaint);
+  }
 
-
+  private final  Runnable runnable = new Runnable() {
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawLine(0,0,2.5f+i,4.3f+i,linepaint);
-        canvas.drawLine(getWidth(),0,getWidth()-2.5f-i,4.3f+i,linepaint);
+    public void run() {
+      if (stopAnimator) {
+        return;
+      }
+
+      if (ival < 200) {
+        ival += 10;
+      } else {
+        ival = 0;
+      }
+      invalidate();
+      event.postTask(this, 200);
     }
+  };
 
-    Runnable runnable=new Runnable() {
-        @Override
-        public void run() {
+  @Override
+  public void stopRunner() {
+    stopAnimator = true;
+    if (runner != null) {
+      runner.stop();
+    }
+  }
 
-            if(i<200){
-                i+=10;
-            }
-            else{
-                i=0;
-            }
-            invalidate();
-            postDelayed(this,300);
-        }
-    };
 }
