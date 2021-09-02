@@ -1,5 +1,8 @@
 Smarty Toast
 =================
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=applibgroup_SmartyToast&metric=alert_status)](https://sonarcloud.io/dashboard?id=applibgroup_SmartyToast)
+[![.github/workflows/main.yml](https://github.com/applibgroup/SmartyToast/actions/workflows/main.yml/badge.svg)](https://github.com/applibgroup/SmartyToast/actions/workflows/main.yml)
+
 Introduction
 ------------
 HMOS library with collection of some smart toasts designs which will help in situations of following
@@ -13,16 +16,23 @@ HMOS library with collection of some smart toasts designs which will help in sit
 <LI>Update Status(Updating...)</LI>
 </UL>
 
-# Source
-
+Source
+------------
 The code in this repository was inspired from [amanjeetsingh150/SmartyToast - v1.0](https://github.com/amanjeetsingh150/SmartyToast). We are very thankful to amanjeetsingh150.
 
-# Demo
+Screenshot
+------------
 
-<img src="https://cloud.githubusercontent.com/assets/12881364/26762716/777f7f70-4964-11e7-870f-4f92e6fabf1e.gif"><br><br>
+<img src=/screenshots/smart1.jpg width = "200" height = "470" align=center /> <img src
+=/screenshots/smart2.jpg width = "200" height = "470" align=center />
+<img src=/screenshots/smart3.jpg width = "200" height = "470" align=center /> <img src
+=/screenshots/smart4.jpg width = "200" height = "470" align=center /> <img src=/screenshots
+/smart5.jpg width = "200" height = "470" align=center /> <img src=/screenshots/smart6.jpg width
+ = "200" height = "470" align=center />
 
-## Installation
 
+Installation
+------------
 In order to use the library, add the following line to your **root** gradle file:
 
 I) For using SmartyToast module in sample app, include the source code and add the below
@@ -39,6 +49,14 @@ II) For using SmartyToast in separate application using har file, add the har fi
 dependencies {
         implementation fileTree(dir: 'libs', include: ['*.har'])
         testImplementation 'junit:junit:4.12'
+}
+```
+III) For using SmartyToast from a remdropindicatorote repository in separate application, add the
+ below dependencies in entry/build.gradle file.
+```
+dependencies {
+        implementation 'dev.applibgroup:smartytoast:1.0.0'
+        testCompile 'junit:junit:4.12'
 }
 ```
 
