@@ -24,8 +24,7 @@ Screenshot
 ------------
 
 <img src=/screenshots/smart1.jpg width = "190" height = "380" align=center />  <img src=/screenshots/smart2.jpg width = "190" height = "380" align=center />  <img src=/screenshots/smart3.jpg width = "190" height = "380" align=center /> 
-
-
+------------
 <img src=/screenshots/smart4.jpg width = "190" height = "380" align=center />  <img src=/screenshots/smart5.jpg width = "190" height = "380" align=center />  <img src=/screenshots/smart6.jpg width= "190" height = "380" align=center />
 
 
