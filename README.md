@@ -23,9 +23,9 @@ The code in this repository was inspired from [amanjeetsingh150/SmartyToast - v1
 Screenshot
 ------------
 
-<img src=/screenshots/smart1.jpg width = "180" height = "450" align=center /> <img src=/screenshots/smart2.jpg width = "180" height = "450" align=center />
-<img src=/screenshots/smart3.jpg width = "180" height = "450" align=center /> <img src=/screenshots/smart4.jpg width = "180" height = "450" align=center /> 
-<img src=/screenshots/smart5.jpg width = "180" height = "450" align=center /> <img src=/screenshots/smart6.jpg width= "180" height = "450" align=center />
+<img src=/screenshots/smart1.jpg width = "160" height = "400" align=center /> <img src=/screenshots/smart2.jpg width = "160" height = "400" align=center />
+<img src=/screenshots/smart3.jpg width = "160" height = "400" align=center /> <img src=/screenshots/smart4.jpg width = "160" height = "400" align=center /> 
+<img src=/screenshots/smart5.jpg width = "160" height = "400" align=center /> <img src=/screenshots/smart6.jpg width= "160" height = "400" align=center />
 
 
 Installation
